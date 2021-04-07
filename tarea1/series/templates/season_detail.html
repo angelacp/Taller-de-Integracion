@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<h1>{{ series }} - Season {{ season_id }}</h1>
+
+<div id="accordion">
+    {% for episode in episodes%}
+  <div class="card text-white bg-dark">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <button class="btn text-white bg-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          {{episode.episode}}. {{episode.title}}
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <h8> Air date: {{episode.air_date}} </h8><br>
+        <h8> Characters: </h8>
+        {% for character in episode.characters %}
+        <a href="{% url 'character_detail' character %}" class="text-decoration-none text-white"> {{character}}, </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

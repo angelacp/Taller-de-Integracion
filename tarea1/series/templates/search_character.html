@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<div class='card-columns'>
+    {% for character in characters %}
+<div class="card bg-dark">
+  <img src="{{ character.img }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ character.name }}</h5>
+    <p> Nickname: {{character.nickname}} </p>
+    <p> Occupation: {{character.occupation}} </p>
+    <p> Status: {{character.status}} </p>
+    <p> Seasons in Breaking Bad: 
+        {% for bb in character.appearance %}
+        <a href="{% url 'season_detail' 'Breaking Bad' bb %}" class="text-decoration-none text-white"> {{bb}}, </a>
+        {% endfor %} </p>
+    <p> Seasons in Better Call Saul: 
+        {% for bcs in character.better_call_saul_appearance %}
+        <a href="{% url 'season_detail' 'Better Call Saul' bcs %}" class="text-decoration-none text-white"> {{bcs}}, </a>
+        {% endfor %} </p>
+    <p> Portrayed by {{character.portrayed}} </p>
+  </div>
+</div>
+
+{% endfor %}
+</div>
+{% endblock %}
+

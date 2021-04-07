@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="card-group">
+  <div class="card text-white bg-dark mb-3">
+    <img class="card-img-top" src="https://i.blogs.es/6d84c8/breaking-bad/1366_2000.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Breaking Bad</h5>
+      <p class="card-text">Set in Albuquerque, New Mexico, between 2008 and 2010, Breaking Bad follows Walter White, a meek high school chemistry teacher who transforms into a ruthless player in the local methamphetamine drug trade, driven by a desire to financially provide for his family after being diagnosed with terminal lung cancer.</p>
+      <div class="dropright">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            View Seasons
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for season in bb %}
+                <a class="dropdown-item" href="{% url 'season_detail' season.serie season.season_id %}"> Season {{ season.season_id }}</a>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card text-white bg-dark mb-3">
+    <img class="card-img-top" src="https://www.rockandpop.cl/wp-content/uploads/2020/01/better-call-saul-696x392-1.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Better Call Saul</h5>
+      <p class="card-text">Better Call Saul follows the transformation of James "Jimmy" McGill (Bob Odenkirk), a former con artist who is trying to become a respectable lawyer, into the personality of the flamboyant criminal lawyer Saul Goodman (a play on the phrase "[it]'s all good, man!"), over the six-year period prior to the events of Breaking Bad, spanning from approximately 2002 to 2008.</p>
+      <div class="dropright">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            View Seasons
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for season in bcs %}
+                <a class="dropdown-item" href="{% url 'season_detail' season.serie season.season_id %}"> Season {{ season.season_id }}</a>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<h1>Seasons</h1>
+<div class="row">
+{% for season in seasons %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="https://3.bp.blogspot.com/_hTGlaaH1XqI/TLWDoZA5oBI/AAAAAAAAAZY/HYjlWl8aqQQ/s1600/himym1.jpg">
+            <div class="card-body">
+                <h5 class="card-title">{{ season.serie }}</h5>
+                <p class="card-text">{{ season.season_id }}</p>
+                <a href="{% url 'season_detail' season.serie season.season_id %}"
+                   class="btn btn-primary">
+                    View Episodes
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+-->

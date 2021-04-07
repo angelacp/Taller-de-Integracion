@@ -13,6 +13,12 @@ class Character(models.Model):
 	better_call_saul_appearance = models.JSONField()
 	portrayed = models.CharField(max_length=100)
 	category = models.JSONField()
+	quotes_bb = models.JSONField()
+	quotes_bcs = models.JSONField()
+
+class Character_search(models.Model):
+	name = models.CharField(max_length=100)
+	img = models.CharField(max_length=200)
 
 class Episode(models.Model):
 	episode_id = models.IntegerField(primary_key=True)
@@ -23,11 +29,6 @@ class Episode(models.Model):
 	characters = models.JSONField()
 	series = models.CharField(max_length=100)
 
-class Quote(models.Model):
-	quote_id = models.IntegerField(primary_key=True)
-	quote = models.TextField()
-	author = models.CharField(max_length=100)
-	series = models.CharField(max_length=100)
 
 class Season(models.Model):
 	season_id = models.IntegerField()

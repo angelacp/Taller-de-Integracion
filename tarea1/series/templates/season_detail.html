@@ -7,15 +7,15 @@
 <div id="accordion">
     {% for episode in episodes%}
   <div class="card text-white bg-dark">
-    <div class="card-header">
+    <div class="card-header" id={{episode.episode_id}}>
       <h5 class="mb-0">
-        <button class="btn text-white bg-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <button class="btn text-white bg-dark" data-toggle="collapse" data-target="#collapse{{episode.episode_id}}" aria-expanded="false" aria-controls="collapseOne">
           {{episode.episode}}. {{episode.title}}
         </button>
       </h5>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapse{{episode.episode_id}}" class="collapse" aria-labelledby="heading{{episode.episode_id}}" data-parent="#accordion">
       <div class="card-body">
         <h8> Air date: {{episode.air_date}} </h8><br>
         <h8> Characters: </h8>

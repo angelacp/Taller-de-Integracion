@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from series.models import Season, Episode, Character
+from series.models import Season, Episode, Character, Character_search
 import requests
 import pandas as pd 
 from datetime import datetime, date
@@ -51,39 +51,41 @@ def season_detail(request, serie, season_id):
 	return render(request, 'season_detail.html', context)
 
 def character_detail(request, name):
-	r = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name='+name)
-	df = pd.DataFrame.from_dict(r.json()).iloc[0]
-	character = Character(character_id = df['char_id'],
-						  name = df['name'],
-						  occupation = ', '.join(df['occupation']),
-						  img = df['img'],
-						  status = df['status'],
-						  nickname = df['nickname'],
-						  appearance = df['appearance'],
-						  better_call_saul_appearance = df['better_call_saul_appearance'],
-						  portrayed = df['portrayed'],
-						  category = df['category'])
+	r1 = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name='+name)
+	df1 = pd.DataFrame.from_dict(r1.json()).iloc[0]
+	r2 = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/quote?author='+name)
+	df2 = pd.DataFrame.from_dict(r2.json())
+	character = Character(character_id = df1['char_id'],
+						  name = df1['name'],
+						  occupation = ', '.join(df1['occupation']),
+						  img = df1['img'],
+						  status = df1['status'],
+						  nickname = df1['nickname'],
+						  appearance = df1['appearance'],
+						  better_call_saul_appearance = df1['better_call_saul_appearance'],
+						  portrayed = df1['portrayed'],
+						  category = df1['category'],
+						  quotes_bb = [q['quote'] for i,q in df2.iterrows() if q['series'] == 'Breaking Bad'],
+						  quotes_bcs = [q['quote'] for i,q in df2.iterrows() if q['series'] == 'Better Call Saul'])
+
 	context = {'character': character}
 	return render(request, 'character_detail.html', context)
 
 
-def search_character (request):
+def search_results (request):
 	name = request.GET.get('q','')
-	r = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name='+name)
-	df = pd.DataFrame.from_dict(r.json())
-	print(df)
 	characters = []
-	for i,d in df.iterrows():
-		character = Character(character_id = d['char_id'],
-							  name = d['name'],
-							  occupation = ', '.join(d['occupation']),
-							  img = d['img'],
-							  status = d['status'],
-							  nickname = d['nickname'],
-							  appearance = d['appearance'],
-							  better_call_saul_appearance = d['better_call_saul_appearance'],
-							  portrayed = d['portrayed'],
-							  category = d['category'])
-		characters.append(character)
+	i = 0
+	while True:
+		r = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name='+name+'&offset='+str(i))
+		df = pd.DataFrame.from_dict(r.json())
+		if df.empty:
+			break
+		else:
+			for j,d in df.iterrows():
+				character = Character_search(name = d['name'],
+											 img = d['img'])
+				characters.append(character)
+			i += 10
 	context = {'characters': characters}
-	return render(request, 'search_character.html', context)
+	return render(request, 'search_results.html', context)

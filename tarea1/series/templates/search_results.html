@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+{% if characters %}
+
+<div class='card-columns'>
+    {% for character in characters %}
+<div class="card bg-dark">
+  <img src="{{ character.img }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <!--<h5 class="card-title">{{ character.name }} </h5>-->
+    <a href="{% url 'character_detail' character.name %}" class="text-decoration-none text-white"> {{character.name}} </a>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+{% else %}
+<h9> No characters found </h9>
+
+{% endif %}
+
+{% endblock %}
+

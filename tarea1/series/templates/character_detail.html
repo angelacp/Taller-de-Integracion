@@ -19,6 +19,13 @@
         <a href="{% url 'season_detail' 'Better Call Saul' bcs %}" class="text-decoration-none text-white"> {{bcs}}, </a>
         {% endfor %} </p>
     <p> Portrayed by {{character.portrayed}} </p>
+    <p> Quotes: </p>
+        {% for q in character.quotes_bb %}
+            <p>- {{ q }} </p>
+        {% endfor %}
+        {% for q in character.quotes_bcs %}
+            <p>- {{ q }} </p>
+        {% endfor %}
   </div>
 </div>
 

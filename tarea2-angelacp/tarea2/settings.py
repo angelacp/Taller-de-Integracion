@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(l_rbhnq!mvj!i)p2q$(93la)pqyawr@#yl#6viska333viqu-'
+SECRET_KEY = None # La oculte porque me generaba problemas en el repositorio publico de GitHub
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tarea2db',
         'USER': 'angelacp',
-        'PASSWORD': '123',
+        'PASSWORD': '', # La oculte porque me generaba problemas en el repositorio publico de GitHub
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
